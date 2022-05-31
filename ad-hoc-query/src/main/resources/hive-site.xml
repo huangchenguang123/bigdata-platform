@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:mysql://localhost:3306/metastore?createDatabaseIfNotExist=true</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>com.mysql.jdbc.Driver</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>root</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>Hcg564159;</value>
+    </property>
+    <property>
+        <name>hive.server2.thrift.client.user</name>
+        <value>root</value>
+        <description>Username to use against thrift client</description>
+    </property>
+    <property>
+        <name>hive.server2.thrift.client.password</name>
+        <value>Hcg564159;</value>
+        <description>Password to use against thrift client</description>
+    </property>
+</configuration>
