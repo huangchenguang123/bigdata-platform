@@ -1,4 +1,4 @@
-package com.chuxing.bigdataplatform.adhocquery.starter;
+package com.chuxing.bigdataplatform.webserver.starter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,11 +10,11 @@ import org.springframework.context.annotation.ComponentScan;
  * @desc starter
  */
 @SpringBootApplication
-@ComponentScan(basePackages = "com.chuxing.bigdataplatform.adhocquery")
-public class AdHocQueryApplication {
+@ComponentScan(basePackages = "com.chuxing.bigdataplatform.webserver")
+public class WebServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AdHocQueryApplication.class, args);
+        SpringApplication.run(WebServerApplication.class, args);
     }
 
 }

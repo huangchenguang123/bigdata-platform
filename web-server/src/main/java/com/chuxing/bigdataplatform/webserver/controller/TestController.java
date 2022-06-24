@@ -1,5 +1,6 @@
-package com.chuxing.bigdataplatform.adhocquery.controller;
+package com.chuxing.bigdataplatform.webserver.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @desc ad hoc query controller
  */
 @RestController
-@RequestMapping("/ad-hoc-query")
-public class AdHocQueryController {
+@RequestMapping("/test")
+public class TestController {
 
-    @RequestMapping("/test")
+    @PostMapping()
     public String test() {
         return "hello world!";
     }
