@@ -1,6 +1,6 @@
 {
-  "name": "electron-antd",
-  "appId": "org.electron.electron-antd",
+  "name": "bigdata-platform-ui",
+  "appId": "bigdata-platform-ui",
   "version": "1.0.0",
   "buildVersion": "0001",
   "private": false,
@@ -71,13 +71,5 @@
     "webpack-dev-server": "^4.7.3",
     "webpackbar": "^5.0.2"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lanten/electron-antd.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lanten/electron-antd/issues"
-  },
-  "homepage": "https://github.com/lanten/electron-antd#readme"
+  "license": "Apache-2.0"
 }

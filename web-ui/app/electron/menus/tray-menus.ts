@@ -39,15 +39,6 @@ export const trayMenus: MenuItemConstructorOptions[] = [
         label: 'About',
         click: (): void => {
           $tools.createWindow('About')
-          // app.setAboutPanelOptions({
-          //   applicationName: $tools.APP_NAME,
-          //   applicationVersion: $tools.APP_VERSION,
-          //   copyright: 'lanten',
-          //   authors: ['lanten'],
-          //   website: 'https://github.com/lanten/electron-antd',
-          //   iconPath: $tools.APP_ICON,
-          // })
-          // app.showAboutPanel()
         },
       },
     ],
