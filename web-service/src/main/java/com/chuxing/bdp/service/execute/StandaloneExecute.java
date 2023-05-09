@@ -38,6 +38,12 @@ public class StandaloneExecute implements Execute {
             ResultSet resultSet = statement.executeQuery(sql);
             // get mate
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            List<String> mate = Lists.newArrayList();
+            for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+                mate.add(resultSetMetaData.getColumnName(i));
+            }
+            result.add(mate);
+            // get result
             while (resultSet.next()) {
                 List<String> row = Lists.newArrayList();
                 for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {

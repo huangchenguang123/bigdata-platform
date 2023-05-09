@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 
 /**
  * @date 2023/4/23 17:55
@@ -29,7 +30,8 @@ public class CsvService {
      * @author huangchenguang
      * @desc upload file to local datawarehouse
      */
-    public void uploadTable(MultipartFile data, String tableName) {
+    public void uploadTable(MultipartFile data) {
+        String tableName = Objects.requireNonNull(data.getOriginalFilename()).replace(".csv", "");
         try {
             // save file to tmp path
             String filePath = String.format("%s%s/%s", appConfig.getDatawarehousePath(), appConfig.getTmpPath(), data.getOriginalFilename());

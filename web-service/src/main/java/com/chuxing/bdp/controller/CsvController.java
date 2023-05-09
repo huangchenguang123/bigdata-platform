@@ -2,7 +2,6 @@ package com.chuxing.bdp.controller;
 
 import com.chuxing.bdp.model.rpc.common.Result;
 import com.chuxing.bdp.service.CsvService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,16 +28,12 @@ public class CsvController {
      * @desc uploadTable
      */
     @RequestMapping("/uploadTable")
-    public Result<Boolean> uploadTable(@RequestParam("data") MultipartFile data,
-                                       @RequestParam("tableName") String tableName) {
+    public Result<Boolean> uploadTable(@RequestParam("data") MultipartFile data) {
         // only supported csv
         if (!Objects.requireNonNull(data.getOriginalFilename()).endsWith(".csv")) {
             throw new RuntimeException("only csv file is supported");
         }
-        if (StringUtils.isBlank(tableName)) {
-            throw new RuntimeException("table name is blank");
-        }
-        csvService.uploadTable(data, tableName);
+        csvService.uploadTable(data);
         return Result.success(true);
     }
 
