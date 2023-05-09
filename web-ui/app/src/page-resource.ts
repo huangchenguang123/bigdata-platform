@@ -4,7 +4,6 @@
 
 // common
 export const NoMatch = import('./views/common/no-match')
-export const AlertModal = import('./views/common/alert-modal')
 
 // 设为 undefined 将不会创建路由，一般用于重定向
 export const Home = undefined
