@@ -1,16 +1,12 @@
 const routes: RouteConfig[] = [
   {
-    name: 'Demo',
-    path: '/demo',
+    name: 'WorkSpace',
+    path: '/workspace',
     createConfig: {
       single: false,
       showCustomTitlebar: true,
-    },
-  },
-  {
-    name: 'PageParams',
-    path: '/page-params/:test',
-  },
+    }
+  }
 ]
 
 export default routes

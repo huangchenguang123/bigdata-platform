@@ -9,39 +9,10 @@ export const trayMenus: MenuItemConstructorOptions[] = [
   },
 
   {
-    label: 'Page Params',
+    label: 'WorkSpace',
     click: (): void => {
-      $tools.createWindow('PageParams', {
-        params: { test: 'test-params' },
-        query: { testObj: JSON.stringify({ aa: ['bb', 'cc'] }) },
-      })
+      $tools.createWindow('WorkSpace')
     },
-  },
-
-  {
-    label: 'Demo - Custom Titlebar',
-    click: (): void => {
-      $tools.createWindow('Demo')
-    },
-  },
-
-  {
-    label: 'Help',
-    submenu: [
-      {
-        label: 'Log Viewer',
-        click: (): void => {
-          $tools.createWindow('LogViewer')
-        },
-      },
-      { type: 'separator' },
-      {
-        label: 'About',
-        click: (): void => {
-          $tools.createWindow('About')
-        },
-      },
-    ],
   },
 
   { type: 'separator' },

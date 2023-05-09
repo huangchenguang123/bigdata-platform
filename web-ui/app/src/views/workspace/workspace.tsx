@@ -3,12 +3,12 @@ import { Button, Input, Spin, Card } from 'antd'
 
 import { withStore } from '@/core/store'
 
-interface DemoProps extends PageProps, StoreProps {
+interface WorkSpaceProps extends PageProps, StoreProps {
   count: StoreStates['count']
   countAlias: StoreStates['count']
 }
 
-declare interface DemoState {
+declare interface WorkSpaceState {
   resData: Partial<queryTestInfoUsingGET.Response>
   loading: boolean
   createWindowLoading: boolean
@@ -16,9 +16,9 @@ declare interface DemoState {
 }
 
 @withStore(['count', { countAlias: 'count' }])
-export default class Demo extends React.Component<DemoProps, DemoState> {
+export default class WorkSpace extends React.Component<WorkSpaceProps, WorkSpaceState> {
   // state 初始化
-  state: DemoState = {
+  state: WorkSpaceState = {
     resData: {},
     loading: false,
     createWindowLoading: false,
@@ -26,7 +26,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   }
 
   // 构造函数
-  constructor(props: DemoProps) {
+  constructor(props: WorkSpaceProps) {
     super(props)
   }
 
@@ -121,7 +121,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
   openNewWindow = (): void => {
     this.setState({ createWindowLoading: true })
-    $tools.createWindow('Demo').finally(() => this.setState({ createWindowLoading: false }))
+    $tools.createWindow('WorkSpace').finally(() => this.setState({ createWindowLoading: false }))
   }
 
   requestTest(): void {
@@ -153,4 +153,4 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
       })
       .finally(() => this.setState({ loading: false }))
   }
-} // class Demo end
+}
