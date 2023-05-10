@@ -1,4 +1,4 @@
-import { Notification, BrowserWindow } from 'electron'
+import { Notification } from 'electron'
 
 /**
  * 网络请求发生错误时的处理
@@ -34,22 +34,6 @@ export async function errorAction(err: AnyObj, sendData: AnyObj, options: Reques
           body: message,
         })
         n.show()
-      } else {
-        await $tools.createWindow('AlertModal', {
-          windowOptions: {
-            modal: true,
-            parent: BrowserWindow.getFocusedWindow() || undefined,
-            title,
-          },
-          createConfig: {
-            delayToShow: 100, // DESC 避免无边框窗口闪烁
-          },
-          query: {
-            type: 'error',
-            title,
-            message,
-          },
-        })
       }
       break
   }

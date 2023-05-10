@@ -1,65 +1,44 @@
 import * as React from 'react'
-import { Button, Input, Spin, Card } from 'antd'
+import {Button, Card, message, Upload, UploadProps} from 'antd'
 
-import { withStore } from '@/core/store'
+import {UploadOutlined} from "@ant-design/icons";
 
-interface WorkSpaceProps extends PageProps, StoreProps {
-  count: StoreStates['count']
-  countAlias: StoreStates['count']
-}
+export default class WorkSpace extends React.Component {
 
-declare interface WorkSpaceState {
-  resData: Partial<queryTestInfoUsingGET.Response>
-  loading: boolean
-  createWindowLoading: boolean
-  asyncDispatchLoading: boolean
-}
+    componentDidMount(): void {
+        console.log(this)
+    }
 
-@withStore(['count', { countAlias: 'count' }])
-export default class WorkSpace extends React.Component<WorkSpaceProps, WorkSpaceState> {
-  // state 初始化
-  state: WorkSpaceState = {
-    resData: {},
-    loading: false,
-    createWindowLoading: false,
-    asyncDispatchLoading: false,
-  }
-
-  // 构造函数
-  constructor(props: WorkSpaceProps) {
-    super(props)
-  }
-
-  componentDidMount(): void {
-    console.log(this)
-  }
-
-  render(): JSX.Element {
-    const { resData, loading} = this.state
-    return (
-        <div className="layout-padding">
-        <Card title="Request Test" className="mb-16">
-          <Spin spinning={loading}>
-            <div className="mb-16">
-              <Button type="primary" onClick={this.requestTest.bind(this)}>
-                Request
-              </Button>
+    render(): JSX.Element {
+        return (
+            <div className="layout-padding">
+                <Card title="Request Test" className="mb-16">
+                    <div className="mb-16">
+                        <Upload {...props}>
+                            <Button icon={<UploadOutlined/>}>Click to Upload</Button>
+                        </Upload>
+                    </div>
+                </Card>
             </div>
-            <Input.TextArea value={JSON.stringify(resData)} autoSize />
-          </Spin>
-        </Card>
-      </div>
-    )
-  }
-
-  requestTest(): void {
-    this.setState({ loading: true })
-    $api
-      .queryTestInfo({})
-      .then((resData) => {
-        this.setState({ resData })
-      })
-      .finally(() => this.setState({ loading: false }))
-  }
+        )
+    }
 
 }
+
+const props: UploadProps = {
+
+    name: 'data',
+    action: 'http://localhost:8080/csv/uploadTable',
+
+    onChange(info) {
+        if (info.file.status !== 'uploading') {
+            console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+            message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+        }
+    }
+
+};
