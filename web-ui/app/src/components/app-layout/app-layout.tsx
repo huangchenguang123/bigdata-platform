@@ -1,8 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
 
-import { AppTitlebar, AppSidebar } from '../'
-
 import './app-layout.less'
 
 interface AppLayoutProps {
@@ -21,9 +19,7 @@ export class AppLayout extends React.Component<AppLayoutProps> {
           process.platform
         )}
       >
-        {createConfig.showSidebar ? <AppSidebar /> : null}
         <div className="flex-1 app-content-wrap">
-          {createConfig.showCustomTitlebar ? <AppTitlebar /> : null}
           <div className="app-content">{this.props.children}</div>
         </div>
       </div>
