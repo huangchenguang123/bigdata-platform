@@ -26,6 +26,7 @@ export default {
   'home.nav.myHistory': '历史记录',
   'home.nav.github': 'GitHub',
   'home.text.visitedTime': '最近访问时间：',
+  'home.nav.file': '文件管理',
 
   'history.title.myHistory': '我的SQL',
   'history.tab.mySave': '我的保存',
@@ -41,5 +42,5 @@ export default {
   'connection.input.newLink': '新建连接',
   'connection.button.edit': '修改连接',
   'connection.button.clone': '克隆连接',
-  'connection.button.delete': '删除连接' 
+  'connection.button.delete': '删除连接'
 }

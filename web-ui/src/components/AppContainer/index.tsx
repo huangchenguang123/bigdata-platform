@@ -30,19 +30,10 @@ window._ENV = process.env.UMI_ENV!
 export default memo<IProps>(function AppContainer({ className, children }) {
   const [startSchedule, setStartSchedule] = useState(0); // 0 初始状态 1 服务启动中 2 启动成功
   const [serviceFail, setServiceFail] = useState(false);
-  // const scrollTimer = useRef<any>();
 
   function hashchange() {
     setCurrentPosition();
   }
-
-  // window.addEventListener('scroll', function () {
-  //   document.body.toggleAttribute('scroll', true)
-  //   scrollTimer.current && clearTimeout(scrollTimer.current)
-  //   scrollTimer.current = setTimeout(() => {
-  //     document.body.toggleAttribute('scroll')
-  //   }, 500)
-  // })
 
   useLayoutEffect(() => {
     settings();
@@ -88,40 +79,12 @@ export default memo<IProps>(function AppContainer({ className, children }) {
       localStorage.setItem('lang', 'zh-cn');
     }
 
-    //禁止右键
-    // document.oncontextmenu = (e) => {
-    //   e.preventDefault();
-    // };
   }
 
   return (
     <ConfigProvider prefixCls="custom">
-      {/* 待启动状态 */}
-      {startSchedule === 0 && <div className={classnames(className, styles.app)}></div>}
-      {/* 服务启动中 */}
-      {startSchedule === 1 && <div className={styles.starting}>
-        <div>
-          {!serviceFail && <LoadingLiquid />}
-          <div className={styles.hint}>
-            {/* {serviceFail
-              ? i18n('common.text.serviceFail')
-              : i18n('common.text.serviceStarting')} */}
-            <Setting text={'设置'} />
-          </div>
-          {serviceFail && (
-            <>
-              <div className={styles.restart}>
-                联系我们-钉钉群：<a href="dingtalk://dingtalkclient/action/sendmsg?dingtalk_id=9135032392">9135032392</a>
-              </div>
-              <div className={styles.restart} onClick={detectionService}>
-                尝试重新启动
-              </div>
-            </>
-          )}
-        </div>
-      </div>}
-      {/* 服务启动完成 */}
-      {startSchedule === 2 && <div className={classnames(className, styles.app)}>{children}</div>}
+      <div className={classnames(className, styles.app)}>{children}</div>
     </ConfigProvider>
   );
+
 });

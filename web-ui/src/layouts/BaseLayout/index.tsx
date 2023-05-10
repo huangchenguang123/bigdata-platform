@@ -1,9 +1,8 @@
-import React, { Children, useEffect, useState, PropsWithChildren } from 'react';
+import React, { useEffect, useState, PropsWithChildren } from 'react';
 import styles from './index.less';
 import { history } from 'umi';
 import Iconfont from '@/components/Iconfont';
 import classnames from 'classnames';
-import { Button, Menu } from 'antd';
 import Setting from '@/components/Setting';
 import BrandLogo from '@/components/BrandLogo';
 import i18n from '@/i18n';
@@ -24,25 +23,9 @@ const LNKConfig: INavItem[] = [
     path: '/'
   },
   {
-    title: i18n('home.nav.myHistory'),
-    icon: '\ue80a',
-    path: '/sql-history'
-  },
-  {
-    title: 'chatRobot',
-    icon: "\ue70e",
-    path: '/chat'
-  },
-  // {
-  //   title: '后台管理',
-  //   icon: "\ue66d",
-  //   path: '/manage'
-  // },
-  {
-    title: i18n('home.nav.github'),
-    icon: '\ue885',
-    path: 'https://github.com/alibaba/Chat2DB',
-    openBrowser: true
+    title: i18n('home.nav.file'),
+    icon: '\ue63e',
+    path: '/file-manager'
   }
 ];
 
@@ -108,7 +91,7 @@ export default function BaseLayout({ children }: PropsWithChildren<IProps>) {
           })}
         </ul>
         <div className={styles.footer}>
-          <Setting className={styles.setIcon}></Setting>
+          <Setting className={styles.setIcon} text={'设置'}></Setting>
         </div>
       </div>
       <div className={styles.layoutRight}>

@@ -26,11 +26,12 @@ export default {
   'home.nav.myHistory': 'My History',
   'home.nav.github': 'GitHub',
   'home.text.visitedTime': 'Last visited:',
+  'home.nav.file': 'File Manager',
 
   'history.title.myHistory': 'My History',
   'history.tab.mySave': 'My Save',
   'history.tab.executionHistory': 'Execution History',
-  
+
 
   'home.title.name': 'database',
   'home.title.link': 'link',
