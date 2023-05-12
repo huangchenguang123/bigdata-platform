@@ -18,6 +18,8 @@ import { language } from 'monaco-editor/esm/vs/basic-languages/sql/sql';
 const { keywords } = language;
 import DatabaseContextProvider, { DatabaseContext } from '@/context/database';
 import CreateConnection from '@/components/CreateConnection';
+import FileManagerAddDropdown from "@/components/FileManagerAddDropdown";
+import UploadFile from "@/components/UploadFile";
 
 
 interface IProps {
@@ -106,7 +108,7 @@ function DatabasePage({ className }: IProps) {
                 <Iconfont code="&#xec08;" />
               </div>
               <Dropdown
-                overlay={<GlobalAddMenu getAddTreeNode={getAddTreeNode} />}
+                overlay={<FileManagerAddDropdown getAddTreeNode={getAddTreeNode} />}
                 trigger={['click']}
               >
                 <div
@@ -148,7 +150,7 @@ function DatabasePage({ className }: IProps) {
     </DraggableContainer>
     <OperationTableModal />
     // 创建修改连接
-    <CreateConnection />
+    <UploadFile />
   </>
 };
 
@@ -156,4 +158,4 @@ export default function () {
   return <DatabaseContextProvider>
     <DatabasePage />
   </DatabaseContextProvider>
-} 
+}

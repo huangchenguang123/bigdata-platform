@@ -24,7 +24,7 @@ const LNKConfig: INavItem[] = [
   },
   {
     title: i18n('home.nav.file'),
-    icon: '\ue63e',
+    icon: '\ue609',
     path: '/file-manager'
   }
 ];

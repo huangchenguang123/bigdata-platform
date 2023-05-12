@@ -7,6 +7,10 @@ import {
   ConsoleType,
 } from '@/utils/constants';
 
+export interface IFile {
+  name: string;
+  icon: string;
+}
 export interface IDatabase {
   name: string;
   code: DatabaseTypeCode;

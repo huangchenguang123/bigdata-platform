@@ -2,7 +2,7 @@ import mysqlLogo from '@/assets/mysql-logo.png';
 import redisLogo from '@/assets/redis-logo.png';
 import h2Logo from '@/assets/h2-logo.png';
 import moreDBLogo from '@/assets/moreDB-logo.png';
-import { IDatabase } from '@/types';
+import {IDatabase, IFile} from '@/types';
 
 export enum ThemeType {
   default = 'default',
@@ -12,6 +12,15 @@ export enum ThemeType {
 export enum StatusType {
   SUCCESS = 'success',
   FAIL = 'fail',
+}
+
+export const fileType: {
+  [keys: string]: IFile;
+} = {
+  "csv": {
+    name: 'csv',
+    icon: '\ue63e'
+  }
 }
 
 export enum DatabaseTypeCode {
