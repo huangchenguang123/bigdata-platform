@@ -7,6 +7,7 @@ import { Menu } from 'antd';
 import {IDatabase, IFile, ITreeNode} from '@/types'
 import {databaseType, DatabaseTypeCode, fileType} from '@/utils/constants';
 import { DatabaseContext } from '@/context/database'
+import {FileManagerContext} from "@/context/file-manager";
 
 interface IProps {
   className?: string;
@@ -62,12 +63,10 @@ const items: MenuItem[] = newDataSourceChildren
 
 export default memo<IProps>(function FileManagerAddDropdown(props) {
   const { className, getAddTreeNode } = props;
-  const { model, setEditDataSourceData } = useContext(DatabaseContext);
+  const { setIsUploaderShow } = useContext(FileManagerContext);
 
   const onClickMenuNode: MenuProps['onClick'] = (e) => {
-    setEditDataSourceData({
-      dataType: e.keyPath[0] as DatabaseTypeCode,
-    })
+    setIsUploaderShow(true)
   };
 
   function submitCallback(data: ITreeNode) {

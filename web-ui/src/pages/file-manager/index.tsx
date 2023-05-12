@@ -1,25 +1,15 @@
-import React, { memo, useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styles from './index.less';
 import classnames from 'classnames';
 import { Dropdown } from 'antd';
 import i18n from '@/i18n';
 import Iconfont from '@/components/Iconfont';
-import Tree from '@/components/Tree';
 import DraggableContainer from '@/components/DraggableContainer';
-import OperationTableModal, {
-  IOperationData,
-} from '@/components/OperationTableModal';
-import GlobalAddMenu from '@/components/GlobalAddMenu';
-import ConsoleList from '@/components/ConsoleList';
 import SearchInput from '@/components/SearchInput';
-import { IConnectionBase, ITreeNode, IWindowTab, IDB, IConsole } from '@/types';
-const monaco = require('monaco-editor/esm/vs/editor/editor.api');
-import { language } from 'monaco-editor/esm/vs/basic-languages/sql/sql';
-const { keywords } = language;
-import DatabaseContextProvider, { DatabaseContext } from '@/context/database';
-import CreateConnection from '@/components/CreateConnection';
+import { ITreeNode, IConsole } from '@/types';
 import FileManagerAddDropdown from "@/components/FileManagerAddDropdown";
 import UploadFile from "@/components/UploadFile";
+import FileManagerContextProvider from "@/context/file-manager";
 
 
 interface IProps {
@@ -39,8 +29,6 @@ let monacoEditorExternalList: any = {};
 
 
 function DatabasePage({ className }: IProps) {
-  const { model, setShowSearchResult } = useContext(DatabaseContext);
-  const { showSearchResult } = model;
   const [activeKey, setActiveKey] = useState<string>();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [isUnfold, setIsUnfold] = useState(true);
@@ -100,7 +88,7 @@ function DatabasePage({ className }: IProps) {
         <div className={styles.aside}>
           <div className={styles.header}>
             <div className={styles.searchBox}>
-              <SearchInput onChange={searchTable} placeholder="搜索数据源" />
+              <SearchInput onChange={searchTable} placeholder="搜索文件" />
               <div
                 className={classnames(styles.refresh, styles.button)}
                 onClick={refresh}
@@ -124,38 +112,17 @@ function DatabasePage({ className }: IProps) {
             <Iconfont code="&#xe63d;" />
             <span>{i18n('connection.button.overview')}</span>
           </div>
-          <Tree
-            cRef={treeRef}
-            className={styles.tree}
-            addTreeData={addTreeNode}
-          />
         </div>
       </div>
       <div className={styles.main}>
-        <ConsoleList windowListChange={windowListChange} />
-        <div className={styles.footer}>
-          <div className={classnames({ [styles.reversalIconBox]: !isUnfold }, styles.iconBox)} onClick={moveLeftAside}>
-            <Iconfont code='&#xeb93;' />
-          </div>
-          {
-            !!windowList.length &&
-            <div onClick={() => { setShowSearchResult(!showSearchResult) }} className={classnames(styles.commandSearchResult, { [styles.unfoldSearchResult]: showSearchResult })}>
-              查询结果
-              <Iconfont code='&#xeb93;' />
-            </div>
-          }
-
-        </div>
       </div>
     </DraggableContainer>
-    <OperationTableModal />
-    // 创建修改连接
     <UploadFile />
   </>
 };
 
 export default function () {
-  return <DatabaseContextProvider>
+  return <FileManagerContextProvider>
     <DatabasePage />
-  </DatabaseContextProvider>
+  </FileManagerContextProvider>
 }
