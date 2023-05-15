@@ -26,8 +26,6 @@ export default defineConfig({
       path: '/',
       component: '@/components/AppContainer',
       routes: [
-        { path: '/login', exact: true, component: '@/pages/login' },
-        // { path: '/verify', exact: true, component: '@/pages/verify' },
         { path: '/error', component: '@/pages/error' },
         {
           path: '/',
@@ -42,16 +40,6 @@ export default defineConfig({
               exact: true,
               path: '/database',
               component: '@/pages/database',
-            },
-            {
-              path: '/sql-history',
-              exact: true,
-              component: '@/pages/sql-history',
-            },
-            {
-              path: '/manage',
-              exact: true,
-              component: '@/pages/manage',
             },
             {
               path: '/chat',
