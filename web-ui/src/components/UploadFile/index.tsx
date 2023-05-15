@@ -10,7 +10,7 @@ import {FileManagerContext} from "@/context/file-manager";
 import i18n from "@/i18n";
 
 function VisiblyUploadFile() {
-  const { model, setIsUploaderShow } = useContext(FileManagerContext);
+  const {model, setIsUploaderShow} = useContext(FileManagerContext);
   const isUploaderShow = model.isUploaderShow;
   const handleOk = () => {
     setIsUploaderShow(false);
@@ -24,11 +24,13 @@ function VisiblyUploadFile() {
     multiple: false,
     action: 'http://localhost:8080/csv/uploadTable',
     onChange(info) {
-      const { status } = info.file;
+      const {status} = info.file;
       if (status === 'done') {
-        message.success(`${info.file.name}` + i18n('file.upload.success')).then(() => {});
+        message.success(`${info.file.name}` + i18n('file.upload.success')).then(() => {
+        });
       } else if (status === 'error') {
-        message.error(`${info.file.name}` + i18n('file.upload.error')).then(() => {});
+        message.error(`${info.file.name}` + i18n('file.upload.error')).then(() => {
+        });
       }
     }
   };
@@ -48,10 +50,10 @@ function VisiblyUploadFile() {
         </Dragger>
       </div>
     </Modal>
-  </div >
+  </div>
 
 }
 
 export default function UploadFile() {
-  return <VisiblyUploadFile />
+  return <VisiblyUploadFile/>
 }
