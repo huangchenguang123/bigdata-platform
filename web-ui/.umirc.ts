@@ -31,7 +31,7 @@ export default defineConfig({
             {
               exact: true,
               path: '/',
-              component: '@/pages/file-manager',
+              component: '@/pages/database',
             },
             {
               exact: true,
