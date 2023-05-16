@@ -1,9 +1,7 @@
 import { defineConfig } from 'umi';
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// const MonacoWebpackPlugin = require('monaco-editor-esm-webpack-plugin');
+require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const UMI_ENV = process.env.UMI_ENV || 'local';
-const assetDir = "static";
 
 const chainWebpack = (config: any, { webpack }: any) => {
   config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
@@ -34,7 +32,7 @@ export default defineConfig({
             {
               exact: true,
               path: '/',
-              component: '@/pages/database',
+              component: '@/pages/file-manager',
             },
             {
               exact: true,
@@ -42,17 +40,9 @@ export default defineConfig({
               component: '@/pages/database',
             },
             {
-              path: '/chat',
-              exact: true,
-              component: '@/pages/chat-ai'
-            },
-            {
               path: '/file-manager',
               exact: true,
               component: '@/pages/file-manager'
-            },
-            {
-              redirect: '/error',
             }
           ]
         }
