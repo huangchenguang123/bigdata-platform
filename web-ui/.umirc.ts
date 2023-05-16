@@ -24,7 +24,6 @@ export default defineConfig({
       path: '/',
       component: '@/components/AppContainer',
       routes: [
-        { path: '/error', component: '@/pages/error' },
         {
           path: '/',
           component: '@/layouts/BaseLayout',
