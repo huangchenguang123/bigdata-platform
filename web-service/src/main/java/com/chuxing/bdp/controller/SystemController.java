@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 /**
  * @date 2023/4/23 17:02
  * @author huangchenguang
- * @desc system controller
+ * @desc 系统管理
  */
 @RestController
 @RequestMapping("/system")
@@ -22,7 +22,7 @@ public class SystemController {
     /**
      * @date 2023/4/23 17:12
      * @author huangchenguang
-     * @desc get mode
+     * @desc 查询系统运行模式
      */
     @RequestMapping("/getMode")
     public Result<String> getMode() {

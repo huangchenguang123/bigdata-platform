@@ -1,5 +1,6 @@
 package com.chuxing.bdp.utils;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * @date 2023/5/8 11:33
  * @author huangchenguang
- * @desc SpringContextUtil
+ * @desc spring工具类
  */
 @Component
 public class SpringContextUtil implements ApplicationContextAware {
@@ -18,17 +19,17 @@ public class SpringContextUtil implements ApplicationContextAware {
     /**
      * @date 2023/5/8 11:38
      * @author huangchenguang
-     * @desc init application context
+     * @desc 初始化application context
      */
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
         SpringContextUtil.applicationContext = applicationContext;
     }
 
     /**
      * @date 2023/5/8 11:39
      * @author huangchenguang
-     * @desc get bean by
+     * @desc 根据名称获取bean
      */
     public static <T> T getBean(Class<T> clazz) {
         return applicationContext.getBean(clazz);

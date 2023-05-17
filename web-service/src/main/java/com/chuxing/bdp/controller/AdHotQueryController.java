@@ -5,7 +5,6 @@ import com.chuxing.bdp.model.rpc.request.AdHotQueryRequest;
 import com.chuxing.bdp.model.rpc.request.AdHotSmartQueryRequest;
 import com.chuxing.bdp.service.ai.AiService;
 import com.chuxing.bdp.service.execute.ExecuteRouter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,9 +14,8 @@ import java.util.List;
 /**
  * @date 2023/4/26 09:53
  * @author huangchenguang
- * @desc ad hot query controller
+ * @desc 即时查询
  */
-@Slf4j
 @RestController
 @RequestMapping("/ad-hot-query")
 public class AdHotQueryController {
@@ -31,7 +29,7 @@ public class AdHotQueryController {
     /**
      * @date 2023/4/26 11:47
      * @author huangchenguang
-     * @desc ad hot query execute
+     * @desc sql查询
      */
     @RequestMapping("/execute")
     public Result<List<List<String>>> execute(@RequestBody @Valid AdHotQueryRequest adHotQueryRequest) {
@@ -41,7 +39,7 @@ public class AdHotQueryController {
     /**
      * @date 2023/4/26 11:47
      * @author huangchenguang
-     * @desc ad hot query smart execute
+     * @desc 自然语言查询
      */
     @RequestMapping("/smartExecute")
     public Result<List<List<String>>> smartExecute(@RequestBody @Valid AdHotSmartQueryRequest adHotSmartQueryRequest) {

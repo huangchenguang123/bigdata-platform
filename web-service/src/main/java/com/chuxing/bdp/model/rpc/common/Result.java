@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * @date 2022/11/24 17:09
  * @author huangchenguang
- * @desc rpc common result
+ * @desc rpc调用包装类
  */
 @Data
 @Builder
@@ -26,26 +26,26 @@ public class Result<T> implements Serializable {
 
     /**
      * @date 2022/11/24 17:11
-     * @desc result
+     * @desc 返回数据
      */
     private T data;
 
     /**
      * @date 2022/11/24 17:11
-     * @desc msg
+     * @desc 额外信息
      */
     private String msg;
 
     /**
      * @date 2022/11/24 17:11
-     * @desc code
+     * @desc 返回码
      */
     private Integer code;
 
     /**
      * @date 2022/11/24 17:32
      * @author huangchenguang
-     * @desc success
+     * @desc 成功
      */
     public static <T> Result<T> success(T data) {
         return Result.<T>builder()
@@ -58,7 +58,7 @@ public class Result<T> implements Serializable {
     /**
      * @date 2022/11/24 17:32
      * @author huangchenguang
-     * @desc fail
+     * @desc 失败
      */
     public static <T> Result<T> fail(String msg) {
         return Result.<T>builder()

@@ -13,11 +13,11 @@ import java.util.Objects;
 /**
  * @date 2023/4/23 17:55
  * @author huangchenguang
- * @desc csv service
+ * @desc 文件服务
  */
 @Slf4j
 @Service
-public class CsvService {
+public class FileService {
 
     @Resource
     private AppConfig appConfig;
@@ -28,26 +28,23 @@ public class CsvService {
     /**
      * @date 2023/4/24 15:20
      * @author huangchenguang
-     * @desc upload file to local datawarehouse
+     * @desc 上传文件
      */
     public void uploadTable(MultipartFile data) {
         String tableName = Objects.requireNonNull(data.getOriginalFilename()).replace(".csv", "");
         try {
-            // save file to tmp path
             String filePath = String.format("%s%s/%s", appConfig.getDatawarehousePath(), appConfig.getTmpPath(), data.getOriginalFilename());
             FileUtils.saveFile(data, filePath);
-            // upload table to db
             String dropSql = String.format("drop table if exists %s", tableName);
             standaloneExecute.executeDml(dropSql);
             String createSql = String.format("create table if not exists %s as select * from read_csv_auto('%s');", tableName, filePath);
             standaloneExecute.executeDml(createSql);
-            // delete file
             FileUtils.deleteFile(filePath);
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            log.error("upload table fail, table={}", tableName, e);
-            throw new RuntimeException("upload table fail");
+            log.error("上传文件失败, 数据集={}", tableName, e);
+            throw new RuntimeException("上传文件失败");
         }
     }
 

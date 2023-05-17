@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 /**
  * @date 2023/5/9 17:30
  * @author huangchenguang
- * @desc WebMvcConfig
+ * @desc mvc配置
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
@@ -15,7 +15,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     /**
      * @date 2023/5/9 17:31
      * @author huangchenguang
-     * @desc default method
+     * @desc cors配置
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {

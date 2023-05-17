@@ -1,5 +1,6 @@
 package com.chuxing.bdp.config;
 
+import com.chuxing.bdp.model.enums.AppModeEnum;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -7,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @date 2023/4/23 17:16
  * @author huangchenguang
- * @desc app config
+ * @desc 应用全局配置，对应application.properties
  */
 @Getter
 @Configuration
@@ -15,7 +16,8 @@ public class AppConfig {
 
     /**
      * @date 2023/4/23 17:16
-     * @desc app mode
+     * @desc 应用运行模式
+     * @see AppModeEnum
      */
     @Value("${mode:}")
     private String mode;
@@ -31,30 +33,30 @@ public class AppConfig {
 
     /**
      * @date 2023/4/23 17:28
-     * @desc datawarehouse path
+     * @desc 独立模式下，本地存储数据的目录
      */
-    @Value("${datawarehouse.path:}")
+    @Value("${datawarehouse.path:/db}")
     private String datawarehousePath;
 
     /**
      * @date 2023/4/23 17:28
-     * @desc tmp path
+     * @desc 独立模式下，本地存储数据的地址中的临时目录
      */
-    @Value("${tmp.path:}")
+    @Value("${tmp.path:/tmp}")
     private String tmpPath;
 
     /**
      * @date 2023/4/23 17:28
-     * @desc db path
+     * @desc 独立模式下，本地存储数据的地址中的数据目录
      */
-    @Value("${db.path:}")
+    @Value("${db.path:/db}")
     private String dbPath;
 
     /**
      * @date 2023/4/23 17:28
-     * @desc db name
+     * @desc 独立模式下，本地存储数据的地址中的数据库名称
      */
-    @Value("${db.main.name:}")
+    @Value("${db.main.name:bdp.main.db}")
     private String dbMainName;
 
     /* standalone end*/

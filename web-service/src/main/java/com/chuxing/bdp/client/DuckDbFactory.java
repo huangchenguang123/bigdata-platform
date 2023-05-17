@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * @date 2023/4/26 10:29
  * @author huangchenguang
- * @desc duckdb client
+ * @desc duckdb工厂类，用于duckdb建立连接，关闭连接等操作
  */
 @Service
 public class DuckDbFactory {
@@ -19,7 +19,7 @@ public class DuckDbFactory {
     @Resource
     private AppConfig appConfig;
 
-    // init driver
+    // 初始化jdbc驱动
     static {
         try {
             Class.forName("org.duckdb.DuckDBDriver");
@@ -31,7 +31,7 @@ public class DuckDbFactory {
     /**
      * @date 2023/4/26 10:40
      * @author huangchenguang
-     * @desc get duckdb connection
+     * @desc 获取duckdb连接
      */
     public Connection getConnection() {
         try {
@@ -45,7 +45,7 @@ public class DuckDbFactory {
     /**
      * @date 2023/4/26 10:40
      * @author huangchenguang
-     * @desc close duckdb connection
+     * @desc 关闭jdbc连接
      */
     public void close(Connection connection) {
         try {

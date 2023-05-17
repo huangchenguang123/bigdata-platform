@@ -5,24 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 /**
- * @date 2023/4/26 09:58
+ * @date 2023/5/17 11:08
  * @author huangchenguang
- * @desc 即时查询请求
+ * @desc 表列表查询请求
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdHotQueryRequest {
+public class TableListQueryRequest {
 
     /**
-     * @date 2023/4/26 09:59
-     * @desc sql
+     * @date 2023/5/17 11:08
+     * @desc 表名
      */
-    @NotBlank
-    private String sql;
+    private String tableName;
 
 }

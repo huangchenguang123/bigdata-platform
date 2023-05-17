@@ -14,14 +14,14 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @date 2023/5/6 10:20
  * @author huangchenguang
- * @desc open api client factory
+ * @desc open ai工厂类，用于创建open ai客户端
  */
 public class OpenApiFactory  {
 
     /**
      * @date 2023/5/6 10:21
      * @author huangchenguang
-     * @desc init open api
+     * @desc 初始化open ai客户端
      */
     public static OpenAiStreamClient getOpenAiStreamClient() {
         AppConfig appConfig = SpringContextUtil.getBean(AppConfig.class);

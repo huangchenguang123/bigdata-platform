@@ -7,7 +7,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 /**
  * @date 2023/5/8 11:17
  * @author huangchenguang
- * @desc common config
+ * @desc 通用配置
  */
 @Configuration
 public class CommonConfig {
@@ -15,7 +15,7 @@ public class CommonConfig {
     /**
      * @date 2023/5/8 11:18
      * @author huangchenguang
-     * @desc placeholderConfigurer
+     * @desc @Value配置
      */
     @Bean
     public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {

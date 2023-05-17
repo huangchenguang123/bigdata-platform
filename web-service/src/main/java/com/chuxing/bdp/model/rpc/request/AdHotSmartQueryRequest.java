@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @date 2023/4/26 09:58
  * @author huangchenguang
- * @desc ad hot smart query request
+ * @desc 自然语言查询请求
  */
 @Data
 @Builder

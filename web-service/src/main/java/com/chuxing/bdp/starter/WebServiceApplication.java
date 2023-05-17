@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @date 2023/4/23 11:37
  * @author huangchenguang
- * @desc main class
+ * @desc 启动类
  */
 @SpringBootApplication(scanBasePackages = "com.chuxing")
 public class WebServiceApplication {
