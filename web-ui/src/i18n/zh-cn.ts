@@ -24,7 +24,10 @@ export default {
 
   'file.upload.model.title': '上传文件',
   'file.upload.model.text': '单击或拖动文件到此区域进行上传',
+  'file.upload.model.context': '支持csv文件',
   'file.upload.success': '上传成功',
   'file.upload.error': '上传失败',
+
+  'file.list.icon': '文件列表',
 
 }

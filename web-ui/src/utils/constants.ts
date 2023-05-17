@@ -17,8 +17,8 @@ export enum StatusType {
 export const fileType: {
   [keys: string]: IFile;
 } = {
-  "csv": {
-    name: 'csv',
+  "file": {
+    name: 'file',
     icon: '\ue63e'
   }
 }

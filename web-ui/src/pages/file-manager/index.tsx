@@ -8,6 +8,8 @@ import SearchInput from '@/components/SearchInput';
 import FileManagerAddDropdown from "@/components/FileManagerAddDropdown";
 import UploadFile from "@/components/UploadFile";
 import FileManagerContextProvider from "@/context/file-manager";
+import Tree from "@/components/Tree";
+import {ITreeNode} from "@/types";
 
 interface IProps {
   className?: any;
@@ -15,6 +17,8 @@ interface IProps {
 
 function FileManagerPage({className}: IProps) {
   const [, setOpenDropdown] = useState(false);
+  const [addTreeNode, setAddTreeNode] = useState<ITreeNode[]>();
+  const treeRef = useRef<any>();
 
   const searchTable = () => {
   };
@@ -50,8 +54,13 @@ function FileManagerPage({className}: IProps) {
           </div>
           <div className={styles.overview}>
             <Iconfont code="&#xe63d;"/>
-            <span>{i18n('connection.button.overview')}</span>
+            <span>{i18n('file.list.icon')}</span>
           </div>
+          <Tree
+            cRef={treeRef}
+            className={styles.tree}
+            addTreeData={addTreeNode}
+          />
         </div>
       </div>
       <div className={styles.main}>

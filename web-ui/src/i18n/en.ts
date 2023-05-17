@@ -24,7 +24,10 @@ export default {
 
   'file.upload.model.title': '',
   'file.upload.model.text': '',
+  'file.upload.model.context': '',
   'file.upload.success': '',
   'file.upload.error': '',
+
+  'file.list.icon': ''
 
 }
