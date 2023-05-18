@@ -91,6 +91,7 @@ public class StandaloneExecute implements Execute {
     public List<String> getColumns(String table) {
         String showTableSql = String.format("pragma table_info(%s);", table);
         List<List<String>> result = executeQuery(showTableSql);
+        result = result.subList(1, result.size());
         return result.stream()
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
@@ -105,6 +106,7 @@ public class StandaloneExecute implements Execute {
     public List<String> searchTables(String tableName) {
         String sql = "SELECT name FROM sqlite_master WHERE type='table';";
         List<List<String>> result = executeQuery(sql);
+        result = result.subList(1, result.size());
         return result.stream()
                 .flatMap(Collection::stream)
                 .filter(table -> {

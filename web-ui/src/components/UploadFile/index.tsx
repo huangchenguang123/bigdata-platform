@@ -20,9 +20,9 @@ function VisiblyUploadFile() {
   };
 
   const props: UploadProps = {
-    name: 'data',
+    name: 'file',
     multiple: false,
-    action: 'http://localhost:8080/csv/uploadTable',
+    action: 'http://localhost:8080/file/uploadTable',
     onChange(info) {
       const {status} = info.file;
       if (status === 'done') {
@@ -47,6 +47,7 @@ function VisiblyUploadFile() {
       <div>
         <Dragger {...props}>
           <p className="ant-upload-text">{i18n('file.upload.model.text')}</p>
+          <p className="ant-upload-hint">{i18n('file.upload.model.context')}</p>
         </Dragger>
       </div>
     </Modal>

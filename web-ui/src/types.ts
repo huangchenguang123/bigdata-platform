@@ -166,3 +166,14 @@ export interface ISavedConsole {
   status: string;
   connectable: boolean;
 }
+
+export interface IResult<T> {
+  data: T;
+  msg: string;
+  code: number;
+}
+
+export interface IFileTreeNode {
+  key: string;
+  name: string;
+}

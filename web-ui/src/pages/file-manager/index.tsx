@@ -10,6 +10,7 @@ import UploadFile from "@/components/UploadFile";
 import FileManagerContextProvider from "@/context/file-manager";
 import Tree from "@/components/Tree";
 import {ITreeNode} from "@/types";
+import FileTree from "@/components/FileTree";
 
 interface IProps {
   className?: any;
@@ -56,7 +57,7 @@ function FileManagerPage({className}: IProps) {
             <Iconfont code="&#xe63d;"/>
             <span>{i18n('file.list.icon')}</span>
           </div>
-          <Tree
+          <FileTree
             cRef={treeRef}
             className={styles.tree}
             addTreeData={addTreeNode}

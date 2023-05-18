@@ -1,9 +1,9 @@
 import i18n, { isEN } from "@/i18n";
 import { TreeNodeType, OSType } from '@/utils/constants';
-import { ITreeNode } from '@/types';
+import {IFileTreeNode, ITreeNode} from '@/types';
 import querystring from 'query-string';
 
-// TODO: 
+// TODO:
 // 我们有的版本
 // 1. 线上dome版本 / 本地jar包运行版本
 // 2. 本地调试版本
@@ -119,10 +119,10 @@ export function toTreeList(props:IToTreeProps){
 
 // 生成一个随机数
 export function createRandom(minNum:number,maxNum:number){
-  return Math.floor(Math.random()*(maxNum-minNum+1)+minNum); 
+  return Math.floor(Math.random()*(maxNum-minNum+1)+minNum);
 }
 
-// 
+//
 export function createRandomId(length:number){
 }
 
@@ -147,9 +147,29 @@ export function approximateTreeNode(treeData: ITreeNode[], target: string, isDel
   }
 }
 
+export function approximateFileTreeNode(treeData: IFileTreeNode[], target: string, isDelete = true){
+  if(target){
+    const newTree:IFileTreeNode[] = JSON.parse(JSON.stringify(treeData));
+    newTree.map((item, index) => {
+      // 暂时不递归，只搜索datasorce
+      // if(item.children?.length){
+      //   item.children = approximateTreeNode(item.children, target,false);
+      // }
+      if(item.name?.toUpperCase()?.indexOf(target?.toUpperCase()) == -1 && isDelete){
+        delete newTree[index];
+      }else{
+        item.name = item.name?.replace(target,`<span style='color:red;'>${target}</span>`);
+      }
+    })
+    return newTree.filter(i=>i)
+  }else{
+    return treeData
+  }
+}
+
 /**
- * 获取参数 
- * @returns 
+ * 获取参数
+ * @returns
  */
 export function getLocationHash(){
     const rightHash = location.hash.split('?')[1]
@@ -229,7 +249,7 @@ export function qs<T>() {
 
 export function deepClone(target:any) {
   const map = new WeakMap()
-  
+
   function isObject(target:any) {
       return (typeof target === 'object' && target ) || typeof target === 'function'
   }

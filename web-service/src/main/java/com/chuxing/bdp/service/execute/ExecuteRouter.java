@@ -57,6 +57,7 @@ public class ExecuteRouter implements Execute {
     public void executeDml(String sql) {
         if (Objects.equals(AppModeEnum.STANDALONE.getMode(), appConfig.getMode())) {
            standaloneExecute.executeDml(sql);
+           return;
         }
         throw new RuntimeException("应用初始化异常");
     }
@@ -69,7 +70,7 @@ public class ExecuteRouter implements Execute {
     @Override
     public List<String> getColumns(String table) {
         if (Objects.equals(AppModeEnum.STANDALONE.getMode(), appConfig.getMode())) {
-            standaloneExecute.getColumns(table);
+            return standaloneExecute.getColumns(table);
         }
         throw new RuntimeException("应用初始化异常");
     }
@@ -82,7 +83,7 @@ public class ExecuteRouter implements Execute {
     @Override
     public List<String> searchTables(String tableName) {
         if (Objects.equals(AppModeEnum.STANDALONE.getMode(), appConfig.getMode())) {
-            standaloneExecute.searchTables(tableName);
+            return standaloneExecute.searchTables(tableName);
         }
         throw new RuntimeException("应用初始化异常");
     }
