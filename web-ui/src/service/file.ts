@@ -1,7 +1,6 @@
 import createRequest from "@/service/base";
-import {IResult} from "@/types";
 
-const searchTables = createRequest<{}, IResult<string[]>>(
+const searchTables = createRequest<{}, string[]>(
   '/table/searchTables',
   { method: 'post' },
 );

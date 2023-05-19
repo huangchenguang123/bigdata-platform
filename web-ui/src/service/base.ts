@@ -34,14 +34,9 @@ enum ErrorCode {
 
 const noNeedToastErrorCode = [ErrorCode.NEED_LOGGED_IN];
 
-const mockUrl = 'https://yapi.alibaba.com/mock/1000160';
+const desktopServiceUrl = 'http://127.0.0.1:8080';
 
-const desktopServiceUrl = 'http://127.0.0.1:10824';
-const prodServiceUrl = location.origin;
-
-window._BaseURL = localStorage.getItem('_BaseURL') || (location.href.indexOf('dist/index.html') > -1
-  ? desktopServiceUrl
-  : prodServiceUrl)
+window._BaseURL = desktopServiceUrl
 
 export const baseURL = window._BaseURL;
 
@@ -64,7 +59,7 @@ const request = extend({
   },
 });
 
-request.interceptors.request.use((url, options) => {  
+request.interceptors.request.use((url, options) => {
   const myOptions:any = {
     ...options,
     headers: {
@@ -104,7 +99,7 @@ export default function createRequest<P = void, R = {}>(
 ) {
   // mock
   const { method = 'get', mock = false, errorLevel = 'toast' } = options;
-  const _baseURL = mock ? mockUrl : baseURL;
+  const _baseURL = baseURL;
   return function (params: P) {
     const paramsInUrl: string[] = [];
     const _url = url.replace(/:(.+?)\b/, (_, name: string) => {
@@ -139,14 +134,12 @@ export default function createRequest<P = void, R = {}>(
       request[method](`${_baseURL}${_url}`, { [dataName]: params })
         .then((res) => {
           if (!res) return;
-          const { success, errorCode, errorMessage, data } = res;
+          const { msg, code, data } = res;
           if (
-            !success &&
-            errorLevel === 'toast' &&
-            !noNeedToastErrorCode.includes(errorCode)
+            code != 200 || msg != 'successful'
           ) {
-            message.error(`${errorCode}: ${errorMessage}`);
-            reject(`${errorCode}: ${errorMessage}`);
+            message.error(`${data}`);
+            reject(`${data}`);
           }
           resolve(data);
         })

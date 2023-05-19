@@ -16,7 +16,7 @@ interface IProps {
 }
 
 /** 重启次数 */
-const restartCount = 200;
+const restartCount = 1;
 
 declare global {
   interface Window {
