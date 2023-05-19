@@ -153,7 +153,7 @@ export interface IEditTableConsole extends IConsoleBasic {
   tableData?: ITreeNode;
 }
 
-export type IConsole = IEditTableConsole | ISQLQueryConsole;
+export type IConsole = IEditTableConsole | ISQLQueryConsole | IFileConsoleBasic;
 
 export interface ISavedConsole {
   id: number;
@@ -169,4 +169,9 @@ export interface ISavedConsole {
 
 export interface IFileTreeNode {
   name: string;
+}
+
+export interface IFileConsoleBasic {
+  name: string;
+  key: string;
 }

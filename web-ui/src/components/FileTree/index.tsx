@@ -1,4 +1,4 @@
-import React, {useState, forwardRef, useEffect} from 'react';
+import React, {useState, forwardRef, useEffect, useContext} from 'react';
 import styles from './index.less';
 import classnames from 'classnames';
 import {IFileTreeNode} from '@/types';
@@ -6,6 +6,7 @@ import LoadingContent from '../Loading/LoadingContent';
 import fileService from '@/service/file';
 import {Menu} from "antd";
 import Iconfont from "@/components/Iconfont";
+import {FileManagerContext} from "@/context/file-manager";
 
 interface IProps {
   className?: string;
@@ -17,7 +18,7 @@ interface TreeNodeIProps {
   data: IFileTreeNode;
 }
 
-function Tree(props: IProps) {
+function Tree(props: IProps, ref: any) {
   const {className, cRef} = props;
   const [treeData, setTreeData] = useState<IFileTreeNode[]>([]);
 
@@ -54,6 +55,15 @@ function Tree(props: IProps) {
 function TreeNode(props: TreeNodeIProps) {
   const {data} = props;
   const indentArr = new Array(1).fill('indent');
+  const {model, setFileInfo} = useContext(FileManagerContext);
+
+  function onDoubleClick() {
+    const fileInfo = {
+      name: data.name,
+      key: data.name
+    }
+    setFileInfo(fileInfo);
+  }
 
   return <>
     <div>
@@ -70,7 +80,7 @@ function TreeNode(props: TreeNodeIProps) {
             <div className={styles.typeIcon}>
               <Iconfont code="&#xe63e;"></Iconfont>
             </div>
-            <div className={styles.contentText} >
+            <div className={styles.contentText} onDoubleClick={onDoubleClick}>
               {data.name}
             </div>
           </div>

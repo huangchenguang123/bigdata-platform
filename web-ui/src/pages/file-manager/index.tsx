@@ -8,18 +8,26 @@ import SearchInput from '@/components/SearchInput';
 import FileManagerAddDropdown from "@/components/FileManagerAddDropdown";
 import UploadFile from "@/components/UploadFile";
 import FileManagerContextProvider from "@/context/file-manager";
-import Tree from "@/components/Tree";
-import {ITreeNode} from "@/types";
+import {IConsole, ITreeNode} from "@/types";
 import FileTree from "@/components/FileTree";
+import FileConsoleList from "@/components/FileConsoleList";
+import DraggableContainer from "@/components/DraggableContainer";
+import OperationTableModal from "@/components/OperationTableModal";
 
 interface IProps {
   className?: any;
 }
 
+let monacoEditorExternalList: any = {};
+
 function FileManagerPage({className}: IProps) {
   const [, setOpenDropdown] = useState(false);
   const [addTreeNode, setAddTreeNode] = useState<ITreeNode[]>();
   const treeRef = useRef<any>();
+  const [windowList, setWindowList] = useState<IConsole[]>([]);
+  const [activeKey, setActiveKey] = useState<string>();
+  const volatileRef = useRef<any>();
+  const [isUnfold, setIsUnfold] = useState(true);
 
   const searchTable = () => {
   };
@@ -27,8 +35,28 @@ function FileManagerPage({className}: IProps) {
   function refresh() {
   }
 
+  function windowListChange(value: IConsole[]) {
+    setWindowList(value)
+  }
+
+  const callback = () => {
+    monacoEditorExternalList[activeKey!] && monacoEditorExternalList[activeKey!].layout();
+  };
+
+  const moveLeftAside = () => {
+    if (volatileRef.current) {
+      if (volatileRef.current.offsetWidth === 0) {
+        volatileRef.current.style.width = '250px';
+        setIsUnfold(true);
+      } else {
+        volatileRef.current.style.width = '0px';
+        setIsUnfold(false);
+      }
+    }
+  };
+
   return <>
-    <div className={classnames(className, styles.box)}>
+    <DraggableContainer className={classnames(className, styles.box)} callback={callback} volatileDom={{ volatileRef, volatileIndex: 0 }} >
       <div className={styles.asideBox}>
         <div className={styles.aside}>
           <div className={styles.header}>
@@ -65,8 +93,20 @@ function FileManagerPage({className}: IProps) {
         </div>
       </div>
       <div className={styles.main}>
+        <FileConsoleList windowListChange={windowListChange} />
+        <div className={styles.footer}>
+          <div className={classnames({ [styles.reversalIconBox]: !isUnfold }, styles.iconBox)} onClick={moveLeftAside}>
+            <Iconfont code='&#xeb93;' />
+          </div>
+          {
+            <div className={classnames(styles.commandSearchResult)}>
+              查询结果
+              <Iconfont code='&#xeb93;' />
+            </div>
+          }
+        </div>
       </div>
-    </div>
+    </DraggableContainer>
     <UploadFile/>
   </>
 };
