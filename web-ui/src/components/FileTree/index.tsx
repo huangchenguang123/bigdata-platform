@@ -1,11 +1,10 @@
-import React, {useState, forwardRef, useImperativeHandle, useEffect, useContext} from 'react';
+import React, {useState, forwardRef, useEffect} from 'react';
 import styles from './index.less';
 import classnames from 'classnames';
 import {IFileTreeNode} from '@/types';
 import LoadingContent from '../Loading/LoadingContent';
 import fileService from '@/service/file';
-import {Dropdown, Menu, Space} from "antd";
-import {DownOutlined} from "@ant-design/icons";
+import {Menu} from "antd";
 import Iconfont from "@/components/Iconfont";
 
 interface IProps {
@@ -56,16 +55,8 @@ function TreeNode(props: TreeNodeIProps) {
   const {data} = props;
   const indentArr = new Array(1).fill('indent');
 
-  const renderMenu = () => {
-    return <div>
-      <Menu>
-      </Menu>
-    </div>
-  }
-
-
   return <>
-    <Dropdown overlay={renderMenu()} trigger={['contextMenu']}>
+    <div>
       <div className={classnames(styles.treeNode)} >
         <div className={styles.left}>
           {
@@ -85,7 +76,7 @@ function TreeNode(props: TreeNodeIProps) {
           </div>
         </div>
       </div>
-    </Dropdown>
+    </div>
   </>
 }
 
