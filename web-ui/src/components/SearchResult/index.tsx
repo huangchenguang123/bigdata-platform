@@ -10,7 +10,7 @@ import MonacoEditor from '@/components/MonacoEditor';
 import { Button, DatePicker, Input, Table, Modal, message } from 'antd';
 import { StatusType, TableDataType, TableDataTypeCorresValue } from '@/utils/constants';
 import { formatDate } from '@/utils';
-import { IManageResultData, ITableHeaderItem, ITableCellItem } from '@/types';
+import { IManageResultData, ITableHeaderItem, ITableCellItem } from '@/typings/types';
 import Item from 'antd/lib/list/Item';
 
 interface IProps {

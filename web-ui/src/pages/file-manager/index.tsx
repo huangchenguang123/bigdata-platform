@@ -8,11 +8,10 @@ import SearchInput from '@/components/SearchInput';
 import FileManagerAddDropdown from "@/components/FileManagerAddDropdown";
 import UploadFile from "@/components/UploadFile";
 import FileManagerContextProvider from "@/context/file-manager";
-import {IConsole, ITreeNode} from "@/types";
+import {IConsole, ITreeNode} from "@/typings/types";
 import FileTree from "@/components/FileTree";
 import FileConsoleList from "@/components/FileConsoleList";
 import DraggableContainer from "@/components/DraggableContainer";
-import OperationTableModal from "@/components/OperationTableModal";
 
 interface IProps {
   className?: any;
@@ -24,7 +23,7 @@ function FileManagerPage({className}: IProps) {
   const [, setOpenDropdown] = useState(false);
   const [addTreeNode, setAddTreeNode] = useState<ITreeNode[]>();
   const treeRef = useRef<any>();
-  const [windowList, setWindowList] = useState<IConsole[]>([]);
+  const [, setWindowList] = useState<IConsole[]>([]);
   const [activeKey, setActiveKey] = useState<string>();
   const volatileRef = useRef<any>();
   const [isUnfold, setIsUnfold] = useState(true);

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { useOnlyOnceTask } from '@/utils/hooks';
 import Iconfont from '@/components/Iconfont';
 import { createTableRows, IColumn } from '@/components/TableColumns';
-import { IOptions } from '@/types';
+import { IOptions } from '@/typings/types';
 
 interface IProps {
   className?: string;

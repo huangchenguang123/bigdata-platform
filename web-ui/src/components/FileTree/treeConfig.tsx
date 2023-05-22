@@ -1,4 +1,4 @@
-import { ITreeNode } from '@/types';
+import { ITreeNode } from '@/typings/types';
 import { TreeNodeType } from '@/utils/constants';
 import connectionService from '@/service/connection';
 import mysqlServer from '@/service/mysql';

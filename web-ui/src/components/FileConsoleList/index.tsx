@@ -1,7 +1,5 @@
 import React, { memo, useEffect, useState, useContext } from 'react';
 import classnames from 'classnames';
-import ModifyTable from '@/components/ModifyTable/ModifyTable';
-import DatabaseQuery from '@/components/DatabaseQuery';
 import AppHeader from '@/components/AppHeader';
 import { qs } from '@/utils';
 import { Tabs } from 'antd';
@@ -13,15 +11,7 @@ import {
   IConsole,
   IEditTableConsole,
   ISQLQueryConsole,
-} from '@/types';
-import {
-  TabOpened,
-  ConsoleType,
-  ConsoleStatus,
-  DatabaseTypeCode,
-  consoleTopComment,
-} from '@/utils/constants';
-import { DatabaseContext } from '@/context/database';
+} from '@/typings/types';
 import styles from './index.less';
 import {FileManagerContext} from "@/context/file-manager";
 import FileQuery from "@/components/FileQuery";

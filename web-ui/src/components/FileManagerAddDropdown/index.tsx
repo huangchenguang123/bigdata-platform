@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Iconfont from '../Iconfont';
 import type {MenuProps} from 'antd';
 import {Menu} from 'antd';
-import {IFile} from '@/types'
+import {IFile} from '@/typings/types'
 import {fileType} from '@/utils/constants';
 import {FileManagerContext} from "@/context/file-manager";
 

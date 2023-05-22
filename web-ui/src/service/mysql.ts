@@ -1,5 +1,5 @@
 import createRequest from "./base";
-import { IPageResponse, ITable,IPageParams } from '@/types';
+import { IPageResponse, ITable,IPageParams } from '@/typings/types';
 import { DatabaseTypeCode } from '@/utils/constants';
 
 export interface IGetListParams extends IPageParams  {
@@ -23,7 +23,7 @@ export interface IExecuteSqlResponse {
   dataList: any[];
 }
 export interface IConnectConsoleParams {
-  consoleId: number,	
+  consoleId: number,
   dataSourceId: number,
   databaseName: string,
 }
@@ -37,13 +37,13 @@ const connectConsole = createRequest<IConnectConsoleParams, void>('/api/connecti
 //表操作
 export interface ITableParams {
   tableName:string;
-  dataSourceId:number;	
+  dataSourceId:number;
   databaseName:string;
 }
 
 export interface IExecuteTableParams {
   sql: string;
-  consoleId: number;	
+  consoleId: number;
   dataSourceId: number;
   databaseName: string;
 }

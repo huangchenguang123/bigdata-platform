@@ -1,7 +1,7 @@
 import React, {useState, forwardRef, useEffect, useContext} from 'react';
 import styles from './index.less';
 import classnames from 'classnames';
-import {IFileTreeNode} from '@/types';
+import {IFileTreeNode} from '@/typings/types';
 import LoadingContent from '../Loading/LoadingContent';
 import fileService from '@/service/file';
 import {Menu} from "antd";

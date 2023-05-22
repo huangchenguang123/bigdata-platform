@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react';
 import { IOperationData } from '@/components/OperationTableModal';
-import { ITreeNode } from '@/types';
+import { ITreeNode } from '@/typings/types';
 import { DatabaseTypeCode } from '@/utils/constants';
 import { IEditDataSourceData } from '@/components/CreateConnection';
 

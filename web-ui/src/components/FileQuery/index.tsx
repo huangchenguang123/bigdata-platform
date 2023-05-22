@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import classnames from 'classnames';
 import { useParams } from 'umi';
-import { ISQLQueryConsole } from '@/types';
+import { ISQLQueryConsole } from '@/typings/types';
 import { Button, Divider, Input, message, Modal, Select, Tooltip } from 'antd';
 import { TreeNodeType, WindowTabStatus, OSType } from '@/utils/constants';
 import Iconfont from '@/components/Iconfont';

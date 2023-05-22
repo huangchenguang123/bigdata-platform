@@ -1,8 +1,7 @@
 import mysqlLogo from '@/assets/mysql-logo.png';
-import redisLogo from '@/assets/redis-logo.png';
 import h2Logo from '@/assets/h2-logo.png';
 import moreDBLogo from '@/assets/moreDB-logo.png';
-import {IDatabase, IFile} from '@/types';
+import {IDatabase, IFile} from '@/typings/types';
 
 export enum ThemeType {
   default = 'default',

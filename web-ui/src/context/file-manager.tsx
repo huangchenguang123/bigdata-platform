@@ -1,5 +1,5 @@
 import React, {createContext, useState} from "react";
-import {IFileConsoleBasic} from "@/types";
+import {IFileConsoleBasic} from "@/typings/types";
 import {isNil} from "lodash";
 
 export interface IContext {

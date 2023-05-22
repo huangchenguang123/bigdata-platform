@@ -1,5 +1,5 @@
 import createRequest from './base';
-import { IPageResponse, IConnectionBase, IDB } from '@/types';
+import { IPageResponse, IConnectionBase, IDB } from '@/typings/types';
 
 export interface IGetConnectionParams {
   searchKey?: string;

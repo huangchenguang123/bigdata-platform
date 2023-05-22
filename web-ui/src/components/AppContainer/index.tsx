@@ -2,14 +2,9 @@ import React, { memo, useEffect, useLayoutEffect, useRef, useState } from 'react
 import styles from './index.less';
 import classnames from 'classnames';
 import { ConfigProvider } from 'antd';
-import { history } from 'umi';
-import { useLogin } from '@/utils/hooks';
-import { getLastPosition, setCurrentPosition } from '@/utils';
+import { setCurrentPosition } from '@/utils';
 import miscService from '@/service/misc';
-import LoadingLiquid from '@/components/Loading/LoadingLiquid';
-import i18n from '@/i18n';
 import { ThemeType } from '@/utils/constants';
-import Setting from '@/components/Setting';
 
 interface IProps {
   className?: any;
