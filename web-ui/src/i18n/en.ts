@@ -13,7 +13,6 @@ export default {
   'common.text.en': 'en',
   'common.text.zh-cn': 'zh-cn',
 
-  'home.nav.database': 'Database',
   'home.nav.file': 'File Manager',
 
   'connection.button.overview': 'Database Overview',

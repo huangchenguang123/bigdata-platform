@@ -40,13 +40,6 @@ enum IPromptType {
   SQL_2_SQL = 'SQL_2_SQL',
 }
 
-enum IPromptTypeText {
-  NL_2_SQL = '自然语言转换',
-  SQL_EXPLAIN = '解释SQL',
-  SQL_OPTIMIZER = 'SQL优化',
-  SQL_2_SQL = 'SQL转换',
-}
-
 interface IProps extends IDatabaseQueryProps {
   className?: string;
 }
@@ -242,7 +235,7 @@ export default function FileQuery(props: IProps) {
     const preValue = model.getValue();
 
     model.setValue(
-      `${preValue}\n\n## ---BEGIN---\n## ${sentence}\n## ---${IPromptTypeText[promptType]}:---\n`,
+      `${preValue}\n\n## ---BEGIN---\n## ${sentence}\n`,
     );
 
     const { dataSourceId, databaseName } = windowTab || {};
@@ -536,38 +529,10 @@ export default function FileQuery(props: IProps) {
     ],
     /** 自然语言转化SQL */
     [
-      // { name: '自然语言转SQL', icon: '\ue626', onClick: () => lang2SQL() },
       {
         name: '自然语言转SQL',
         icon: '\ue626',
         onClick: () => lang2SQL('withParams'),
-      },
-    ],
-    // /** 解释SQL */
-    [
-      // { name: 'SQL解释', icon: '\ue626', onClick: () => explainSQL() },
-      {
-        name: 'SQL解释',
-        icon: '\ue626',
-        onClick: () => explainSQL('withParams'),
-      },
-    ],
-    // /** 优化SQL */
-    [
-      // { name: 'SQL优化', icon: '\ue626', onClick: () => optimizeSQL() },
-      {
-        name: 'SQL优化',
-        icon: '\ue626',
-        onClick: () => optimizeSQL('withParams'),
-      },
-    ],
-    // /** SQL转化 */
-    [
-      // { name: 'SQL转化', icon: '\ue626', onClick: () => changeSQL() },
-      {
-        name: 'SQL转化',
-        icon: '\ue626',
-        onClick: () => changeSQL('withParams'),
       },
     ],
   ];

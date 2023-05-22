@@ -13,7 +13,6 @@ export default {
   'common.text.en': '英文',
   'common.text.zh-cn': '中文',
 
-  'home.nav.database': '连接管理',
   'home.nav.file': '文件管理',
 
   'connection.button.overview': '连接概览',

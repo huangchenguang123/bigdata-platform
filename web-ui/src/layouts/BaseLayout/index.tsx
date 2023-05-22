@@ -18,11 +18,6 @@ interface INavItem {
 
 const LNKConfig: INavItem[] = [
   {
-    title: i18n('home.nav.database'),
-    icon: '\ue609',
-    path: '/'
-  },
-  {
     title: i18n('home.nav.file'),
     icon: '\ue609',
     path: '/file-manager'
