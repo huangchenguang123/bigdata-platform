@@ -20,7 +20,6 @@ import mysqlServer from '@/service/mysql';
 import historyServer from '@/service/history';
 import { format } from 'sql-formatter';
 import { OSnow } from '@/utils';
-import { DatabaseContext } from '@/context/database';
 import { formatParams, uuid } from '@/utils/common';
 import connectToEventSource from '@/utils/eventSource';
 
@@ -56,8 +55,6 @@ const initModal = {
   content: <></>,
 };
 export default function FileQuery(props: IProps) {
-  const { model, setDblclickNodeData, setShowSearchResult } =
-    useContext(DatabaseContext);
   const { activeTabKey, windowTab } = props;
   const params: { id: string; type: string } = useParams();
   const [manageResultDataList, setManageResultDataList] = useState<any>([]);
@@ -165,7 +162,7 @@ export default function FileQuery(props: IProps) {
   };
 
   const executeSql = () => {
-    setShowSearchResult(true);
+    // setShowSearchResult(true);
     const sql = getSelectionVal() || getMonacoEditorValue();
     if (!sql) {
       message.warning('请输入SQL语句');
