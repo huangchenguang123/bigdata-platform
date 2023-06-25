@@ -3,8 +3,7 @@ import styles from './index.less';
 import classnames from 'classnames';
 import {IFileTreeNode} from '@/typings/types';
 import LoadingContent from '../Loading/LoadingContent';
-import fileService from '@/service/file';
-import {Menu} from "antd";
+import tableService from '@/service/table';
 import Iconfont from "@/components/Iconfont";
 import {FileManagerContext} from "@/context/file-manager";
 
@@ -23,7 +22,7 @@ function Tree(props: IProps, ref: any) {
   const [treeData, setTreeData] = useState<IFileTreeNode[]>([]);
 
   function getFileList() {
-    fileService.searchTables({}).then(res => {
+    tableService.searchTables({}).then(res => {
       const treeData = res.map(t => {
         return {
           name: t

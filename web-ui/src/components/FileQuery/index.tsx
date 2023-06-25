@@ -1,16 +1,13 @@
 import React, {
-  memo,
   useState,
   useRef,
   useEffect,
-  useContext,
-  useMemo,
 } from 'react';
 import classnames from 'classnames';
 import { useParams } from 'umi';
 import { ISQLQueryConsole } from '@/typings/types';
-import { Button, Divider, Input, message, Modal, Select, Tooltip } from 'antd';
-import { TreeNodeType, WindowTabStatus, OSType } from '@/utils/constants';
+import { Button, Divider, message, Modal, Select, Tooltip } from 'antd';
+import { WindowTabStatus } from '@/utils/constants';
 import Iconfont from '@/components/Iconfont';
 import MonacoEditor, { setEditorHint } from '@/components/MonacoEditor';
 import DraggableContainer from '@/components/DraggableContainer';
@@ -18,13 +15,12 @@ import SearchResult from '@/components/SearchResult';
 import LoadingContent from '@/components/Loading/LoadingContent';
 import mysqlServer from '@/service/mysql';
 import historyServer from '@/service/history';
-import { format } from 'sql-formatter';
-import { OSnow } from '@/utils';
+import tableService from '@/service/table';
+import adHotQueryService from '@/service/ad-hot-query';
 import { formatParams, uuid } from '@/utils/common';
 import connectToEventSource from '@/utils/eventSource';
 
 import styles from './index.less';
-const { Option } = Select;
 const monaco = require('monaco-editor/esm/vs/editor/editor.api');
 
 export interface IDatabaseQueryProps {
@@ -34,9 +30,6 @@ export interface IDatabaseQueryProps {
 
 enum IPromptType {
   NL_2_SQL = 'NL_2_SQL',
-  SQL_EXPLAIN = 'SQL_EXPLAIN',
-  SQL_OPTIMIZER = 'SQL_OPTIMIZER',
-  SQL_2_SQL = 'SQL_2_SQL',
 }
 
 interface IProps extends IDatabaseQueryProps {
@@ -161,34 +154,22 @@ export default function FileQuery(props: IProps) {
     return value;
   };
 
-  const executeSql = () => {
-    // setShowSearchResult(true);
-    const sql = getSelectionVal() || getMonacoEditorValue();
-    if (!sql) {
+  const executeSql = () => {}
+
+  const smartExecute = (tables: string[]) => {
+    const query = getSelectionVal() || getMonacoEditorValue();
+    if (!query) {
       message.warning('请输入SQL语句');
       return;
     }
-    console.log(windowTab)
     let p = {
-      sql,
-      type: windowTab.DBType,
-      consoleId: +windowTab.consoleId,
-      dataSourceId: windowTab?.dataSourceId as number,
-      databaseName: windowTab?.databaseName,
-      schemaName: windowTab?.schemaName
+      query,
+      tables
     };
     setManageResultDataList(null);
-    mysqlServer
-      .executeSql(p)
+    adHotQueryService
+      .smartExecute(p)
       .then((res) => {
-        let p = {
-          dataSourceId: windowTab?.dataSourceId,
-          databaseName: windowTab?.databaseName,
-          name: windowTab?.name,
-          ddl: sql,
-          type: windowTab.DBType,
-        };
-        historyServer.createHistory(p);
         setManageResultDataList(res);
       })
       .catch((error) => {
@@ -209,12 +190,6 @@ export default function FileQuery(props: IProps) {
     historyServer.updateWindowTab(p).then((res) => {
       message.success('保存成功');
     });
-  };
-
-  const formatValue = () => {
-    const model = monacoEditor.current.getModel(monacoEditor.current);
-    const value = model.getValue();
-    model.setValue(format(value, {}));
   };
 
   const monacoEditorChange = () => {
@@ -300,19 +275,12 @@ export default function FileQuery(props: IProps) {
     }
 
     if (!type) {
-      chat2SQL(IPromptType.NL_2_SQL);
+      smartExecute();
     } else {
-      // ---拉取下数据库表----
-      const p = {
-        dataSourceId: windowTab.dataSourceId!,
-        databaseName: windowTab.databaseName!,
-        pageNo: 1,
-        pageSize: 999,
-      };
-      let res = await mysqlServer.getList(p);
-      tableListRef.current = res.data?.map((item) => ({
-        label: item.name,
-        value: item.name,
+      let res = await tableService.searchTables({});
+      tableListRef.current = res?.map((item) => ({
+        label: item,
+        value: item
       }));
       // --------
 
@@ -320,7 +288,7 @@ export default function FileQuery(props: IProps) {
         open: true,
         title: '请选择表',
         handleOk: () => {
-          chat2SQL(IPromptType.NL_2_SQL);
+          smartExecute(res);
           setModalConfig(initModal);
         },
         handleCancel: () => {
@@ -345,193 +313,21 @@ export default function FileQuery(props: IProps) {
       });
     }
   };
-  /**
-   * 解释SQL
-   */
-  const explainSQL = (type?: 'withParams') => {
-    const sentence = getSelectionVal();
-    if (!sentence) {
-      message.warning('请选择输入信息');
-      return;
-    }
-
-    if (!type) {
-      chat2SQL(IPromptType.SQL_EXPLAIN);
-    } else {
-      setModalConfig({
-        open: true,
-        title: '请输入其他附加信息',
-        handleOk: () => {
-          chat2SQL(IPromptType.SQL_EXPLAIN);
-          setModalConfig(initModal);
-        },
-        handleCancel: () => {
-          setModalConfig(initModal);
-        },
-        content: (
-          <Input
-            key={IPromptType.SQL_EXPLAIN}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              extendParams.current = {
-                tableNames: [],
-                ext: e.target.value,
-                destSqlType: '',
-              };
-            }}
-            placeholder="例如：解释SQL查询的目的"
-          />
-        ),
-      });
-      // Modal.confirm({
-      //   title: '输入额外参数信息',
-      //   content: (
-      //     <Input
-      //       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-      //         extendParams.current.ext = e.target.value;
-
-      //       }}
-      //     />
-      //   ),
-      //   onOk: () => chat2SQL(IPromptType.SQL_EXPLAIN),
-      // });
-    }
-  };
-
-  /**
-   * 优化SQL
-   */
-  const optimizeSQL = (type?: 'withParams') => {
-    const sentence = getSelectionVal();
-    if (!sentence) {
-      message.warning('请选择输入信息');
-      return;
-    }
-
-    if (!type) {
-      chat2SQL(IPromptType.SQL_OPTIMIZER);
-    } else {
-      setModalConfig({
-        open: true,
-        title: '请输入其他附加信息',
-        handleOk: () => {
-          chat2SQL(IPromptType.SQL_OPTIMIZER);
-          setModalConfig(initModal);
-        },
-        handleCancel: () => {
-          setModalConfig(initModal);
-        },
-        content: (
-          <Input
-            key={IPromptType.SQL_OPTIMIZER}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              extendParams.current = {
-                tableNames: [],
-                ext: e.target.value,
-                destSqlType: '',
-              };
-            }}
-            placeholder="例如：提供索引优化建议"
-          />
-        ),
-      });
-      // Modal.confirm({
-      //   title: '输入额外参数信息',
-      //   content: (
-      //     <Input
-      //       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-      //         extendParams.current.ext = e.target.value;
-      //       }}
-      //     />
-      //   ),
-      //   onOk: () => {
-      //     chat2SQL(IPromptType.SQL_OPTIMIZER);
-      //   },
-      // });
-    }
-  };
-
-  const changeSQL = (type?: 'withParams') => {
-    const sentence = getSelectionVal();
-    if (!sentence) {
-      message.warning('请选择输入信息');
-      return;
-    }
-    if (!type) {
-      chat2SQL(IPromptType.SQL_2_SQL);
-    } else {
-      setModalConfig({
-        open: true,
-        title: '请输入其他附加信息',
-        handleOk: () => {
-          chat2SQL(IPromptType.SQL_2_SQL);
-          setModalConfig(initModal);
-        },
-        handleCancel: () => {
-          setModalConfig(initModal);
-        },
-        content: (
-          <>
-            <Input
-              addonBefore="目标数据库类型"
-              key={IPromptType.SQL_2_SQL}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                extendParams.current = {
-                  ...extendParams.current,
-                  destSqlType: e.target.value,
-                };
-              }}
-              placeholder="例如: MySQL"
-              style={{ marginBottom: 10 }}
-            />
-            <Input
-              addonBefore="其他附加条件 "
-              key={IPromptType.SQL_2_SQL + 'ext'}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                extendParams.current = {
-                  ...extendParams.current,
-                  ext: e.target.value,
-                };
-              }}
-              placeholder="例如：使用On Conflict语法来替代的Merge Into"
-            />
-          </>
-        ),
-      });
-      // Modal.confirm({
-      //   title: '请填写对应的数据库名',
-      //   content: (
-      //     <Input
-      //       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-      //         extendParams.current.destSqlType = e.target.value;
-      //       }}
-      //     />
-      //   ),
-      //   onOk: () => {
-      //     chat2SQL(IPromptType.SQL_2_SQL);
-      //   },
-      // });
-    }
-  };
 
   const optBtn = [
     /** 基础SQL命令 */
     [
-      { name: '执行', icon: '\ue626', onClick: executeSql },
-      {
-        name: OSnow() === OSType.WIN ? '保存 Ctrl + S' : '保存 CMD + S',
-        icon: '\ue645',
-        onClick: saveWindowTabTab,
-      },
-      { name: '格式化', icon: '\ue7f8', onClick: formatValue },
+
     ],
     /** 自然语言转化SQL */
     [
       {
-        name: '自然语言转SQL',
+        name: '自然语言执行',
         icon: '\ue626',
         onClick: () => lang2SQL('withParams'),
       },
-    ],
+      { name: 'SQL执行', icon: '\ue626', onClick: executeSql }
+    ]
   ];
 
   const renderOptBtn = () => {
